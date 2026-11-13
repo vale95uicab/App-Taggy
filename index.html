@@ -103,11 +103,12 @@ textarea{min-height:90px;resize:vertical}
 .ck input{width:20px;height:20px;padding:0;accent-color:var(--deep);flex:none}
 .sub{font-weight:800;font-size:.8rem;margin:12px 0 2px;color:var(--deep)}
 .auto{background:#fff;border-radius:14px;padding:12px 14px;font-size:.85rem;line-height:1.7;margin-top:8px}
+.circ{overflow:hidden;padding:0}.circ img{width:100%;height:100%;object-fit:cover}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="top"><img src="taggy-logo.png" alt="TAGGY"><button class="circ" onclick="go('profile')" aria-label="Perfil">👤</button></div>
+  <div class="top"><img src="taggy-logo.png" alt="TAGGY"><button class="circ" id="av" onclick="go('profile')" aria-label="Perfil">👤</button></div>
   <main>
     <section class="screen on" id="home"></section>
     <section class="screen" id="health"></section>
@@ -125,13 +126,13 @@ textarea{min-height:90px;resize:vertical}
 
 <script>
 /* ===== CAMBIA ESTA LÍNEA: dirección de tu página web TAGGY (termina con /) ===== */
-const WEB="https://TU-USUARIO.github.io/NOMBRE-DEL-REPO-WEB/";
+const WEB="https://vale95uicab.github.io/Taggy/";
 
 const $=s=>document.querySelector(s),K="taggyApp";
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const DEF={shield:true,lost:null,
  pet:{name:"Dember",species:"Perro",breed:"Shih Tzu",sex:"Macho",birth:"2025-05-14",neutered:true,photo:"",icon:"🐶",id:"#TG-9204-DEMBER",tags:["Amigable","Juguetón","Teme a pirotecnia","Sociable con perros"]},
- tutor:{name:"Valentina Palomino",phone:"(999) 123-4567",email:"vale.palo@gmail.com",coName:"Juanito Alcachofas",coPhone:"(999) 987-6543",city:"Mérida, Yucatán",zone:"Fracc. Los Héroes",hide:true},
+ tutor:{photo:"",name:"Valentina Palomino",phone:"(999) 123-4567",email:"vale.palo@gmail.com",coName:"Juanito Alcachofas",coPhone:"(999) 987-6543",city:"Mérida, Yucatán",zone:"Fracc. Los Héroes",hide:true},
  loc:{lat:21.11056,lng:-89.61139,label:"Universidad Anáhuac Mayab, Mérida, Yucatán"},clin:{},
  health:[{k:"alert",t:"Alergia severa a la penicilina",d:"2024-10-12",n:"Reacción anafiláctica previa reportada. No suministrar derivados de betalactámicos."},
          {k:"visit",t:"Visita y chequeo anual",d:"2024-10-12",n:"Hospital Veterinario del Norte"},
@@ -147,9 +148,9 @@ document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.t
 function sheet(h){$("#sheet").innerHTML=h;$("#bg").classList.add("on")}
 const close=()=>$("#bg").classList.remove("on");
 $("#bg").onclick=e=>{if(e.target.id=="bg")close()};
-const photo=(p,big)=>`<div class="photo" onclick="$('#file').click()" title="Cambiar foto">${p.photo?`<img src="${p.photo}" alt="">`:"🐶"}</div>`;
+const photo=(p,big)=>`<div class="photo" onclick="pickPhoto('pet')" title="Cambiar foto">${p.photo?`<img src="${p.photo}" alt="">`:"🐶"}</div>`;
 
-function home(){homeR();setTimeout(initMap,0)}
+function home(){homeR();av();setTimeout(initMap,0)}
 function homeR(){const p=S.pet,l=S.lost;
 $("#home").innerHTML=`
 <div class="chips"><span class="tag">● MASCOTA ACTIVA</span><span class="tag">((•)) GPS ACTIVO</span></div>
@@ -189,11 +190,11 @@ function saveRec(e){e.preventDefault();S.health.unshift({k:$("#rk").value,t:$("#
 function profile(){const p=S.pet,t=S.tutor;
 const sw=(id,v,txt)=>`<div class="sw">${txt}<button id="${id}" class="${v?"on":""}" onclick="this.classList.toggle('on')"></button></div>`;
 const pk=(g,opts,v)=>`<div class="pick" data-g="${g}">${opts.map(o=>`<button type="button" class="${o==v?"on":""}" onclick="pickIt(this)">${o}</button>`).join("")}</div>`;
-$("#profile").innerHTML=`<div class="seg"><button class="on" onclick="pane(0)">🐾 Datos mascota</button><button onclick="pane(1)">☎ Contacto tutor</button></div>
+$("#profile").innerHTML=`<div class="seg"><button class="on" onclick="pane(0)">🐾 Datos mascota</button><button onclick="pane(1)">☎ Datos del dueño</button></div>
 <div class="pane on"><div style="text-align:center;margin:10px 0">${photo(p).replace('class="photo"','class="photo" style="margin:auto;width:120px;height:120px"')}<p style="font-size:.8rem;margin-top:8px"><span class="tag">ID TAGGY · ${esc(p.id)}</span><br>Toca la foto para cambiarla</p></div>
 <div class="card"><h3>Identidad básica</h3><label>Nombre o apodo</label><input id="pn" value="${esc(p.name)}"><label>Especie</label>${pk("sp",["Perro","Gato","Otro"],p.species)}<label>Raza</label><input id="pb" value="${esc(p.breed)}"><label>Sexo</label>${pk("sx",["Macho","Hembra"],p.sex)}<label>Fecha de nacimiento</label><input id="pd" type="date" value="${p.birth}">${sw("pne",p.neutered,"Esterilizado / castrado")}</div>
 <div class="card"><h3>Carácter y auxilio rápido</h3><div class="traits" id="tr">${p.tags.map((x,i)=>`<span onclick="p_tag(${i})">${esc(x)} ✕</span>`).join("")}</div><label>Añadir rasgo</label><div class="row"><input id="nt" placeholder="Ej. Le gusta la pelota"><button type="button" class="btn p" style="width:90px;margin:0" onclick="addTag()">+</button></div></div></div>
-<div class="pane"><div class="card"><h3>Datos del dueño y tutor</h3><label>Nombre completo</label><input id="tn" value="${esc(t.name)}"><label>Teléfono de llamada directa</label><input id="tp" type="tel" value="${esc(t.phone)}"><label>Correo de alertas</label><input id="te" type="email" value="${esc(t.email)}"><label>Co-tutor de respaldo</label><input id="tcn" value="${esc(t.coName)}"><input id="tcp" type="tel" style="margin-top:8px" value="${esc(t.coPhone)}"></div>
+<div class="pane"><div style="text-align:center;margin:10px 0"><div class="photo" onclick="pickPhoto('tutor')" style="margin:auto;width:110px;height:110px" title="Cambiar foto">${t.photo?`<img src="${t.photo}" alt="">`:"👤"}</div><p style="font-size:.8rem;margin-top:8px;font-weight:700">Toca la foto para cambiarla</p></div><div class="card"><h3>Datos del dueño</h3><label>Nombre completo</label><input id="tn" value="${esc(t.name)}"><label>Teléfono de llamada directa</label><input id="tp" type="tel" value="${esc(t.phone)}"><label>Correo de alertas</label><input id="te" type="email" value="${esc(t.email)}"><label>Contacto de emergencia (familiar)</label><input id="tcn" value="${esc(t.coName)}"><input id="tcp" type="tel" style="margin-top:8px" value="${esc(t.coPhone)}"></div>
 <div class="card"><h3>Domicilio y perímetro</h3><label>Ciudad / Estado</label><input id="tc" value="${esc(t.city)}"><label>Colonia / Zona</label><input id="tz" value="${esc(t.zone)}">${sw("th",t.hide,"Ocultar dirección exacta (solo se muestra colonia y zona)")}</div></div>
 <button class="btn p" onclick="saveProf()">Guardar y sincronizar con collar</button>
 <div class="label">SITIO WEB TAGGY</div><div class="web"><a href="#" onclick="openWeb('comprar.html');return false">🛒<br>Comprar</a><a href="#" onclick="openWeb('foro.html');return false">💬<br>Foro</a></div>`}
@@ -207,9 +208,9 @@ function saveProf(){const p=S.pet,t=S.tutor,v=id=>$("#"+id).value.trim(),b=id=>$
  Object.assign(t,{name:v("tn"),phone:v("tp"),email:v("te"),coName:v("tcn"),coPhone:v("tcp"),city:v("tc"),zone:v("tz"),hide:b("th")});
  save();home();toast("Datos guardados y sincronizados con el collar ✓")}
 
-$("#file").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement("canvas"),s=Math.min(1,400/Math.max(im.width,im.height));c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);S.pet.photo=c.toDataURL("image/jpeg",.8);save();home();profile();toast("Foto actualizada 📷")};im.src=r.result};r.readAsDataURL(f)};
+$("#file").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement("canvas"),s=Math.min(1,400/Math.max(im.width,im.height));c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);S[PT].photo=c.toDataURL("image/jpeg",.8);save();home();profile();if(PT=="tutor")pane(1);toast("Foto actualizada 📷")};im.src=r.result};r.readAsDataURL(f)};
 /* ===== Ir a la página web TAGGY ===== */
-function webUrl(){return localStorage.getItem("taggyWebUrl")||(WEB.includes("TU-USUARIO")?"":WEB)}
+function webUrl(){return WEB}
 function openWeb(p){const u=webUrl();if(!u)return webSheet(p);location.href=u.replace(/\/?$/,"/")+p}
 function webSheet(p){sheet(`<span class="tag">CONECTAR</span><h3>Dirección de tu página TAGGY</h3><p style="margin:6px 0 4px;font-size:.9rem">Pégala una sola vez y los botones te llevarán al sitio.</p><form onsubmit="setWeb(event,'${p}')"><label>Enlace</label><input id="wu" required placeholder="https://tu-usuario.github.io/taggy/"><div class="row"><button type="button" class="btn w" onclick="close()">Cancelar</button><button class="btn p">Guardar e ir</button></div></form>`)}
 function setWeb(e,p){e.preventDefault();let u=$("#wu").value.trim();if(!/^https?:\/\//.test(u))u="https://"+u;localStorage.setItem("taggyWebUrl",u);close();openWeb(p)}
@@ -256,6 +257,9 @@ function clinSheet(){const p=S.pet,t=S.tutor;
  <div class="row" style="margin-top:20px"><button type="button" class="btn w" onclick="close()">Cancelar</button><button class="btn p">Guardar ficha</button></div></form>`)}
 function saveClin(e){e.preventDefault();document.querySelectorAll("#sheet [data-k]").forEach(x=>S.clin[x.dataset.k]=x.type=="checkbox"?x.checked:x.value);save();close();health();toast("Ficha clínica guardada ✓")}
 
+let PT="pet";
+function pickPhoto(w){PT=w;$("#file").click()}
+function av(){const b=$("#av");if(b)b.innerHTML=S.tutor.photo?`<img src="${S.tutor.photo}" alt="Dueño">`:"👤"}
 home();health();profile();
 </script>
 </body>
