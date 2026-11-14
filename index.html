@@ -155,9 +155,7 @@ function homeR(){const p=S.pet,l=S.lost;
 $("#home").innerHTML=`
 <div class="card pet">${photo(p)}<div><h2>${esc(p.name)} <span style="color:var(--orange)">✔</span></h2><small>${esc(p.breed)} · ${age(p.birth)}</small>
  <span class="tag ${l?"lost":"ok"}">${l?"🚨 PERDIDO":"● EN CASA / SEGURO"}</span></div></div>
-<div class="card shield" onclick="S.shield=!S.shield;save();home();toast(S.shield?'Escudo protector activado':'Escudo desactivado')"><i>🛡️</i>Escudo Protector TAGGY<span>${S.shield?"ACTIVO":"APAGADO"}</span></div>
-<div class="label">ACCIONES RÁPIDAS</div>
-<div class="acts"><button class="act" onclick="go('health');addRec()"><i>📝</i>Añadir registro</button><button class="act" onclick="nfcSheet()"><i>📲</i>Ficha collar NFC</button><button class="act" onclick="go('profile')"><i>✏️</i>Editar perfil</button></div>
+
 <div class="label">LOCALIZADOR</div>
 <div class="card loc ${l?"lost":""}"><div class="radar"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="sweep"></span><span class="pin">🐾</span></div>
  <div><strong class="b" style="font-size:1.25rem">${l?"¡Buscando a "+esc(p.name)+"!":"Zona segura"}</strong><p>${l?"Reportado en "+esc(l.zone)+". Tu reporte ya está en la página web.":"Última zona: "+esc(S.loc.label)}</p></div></div>
