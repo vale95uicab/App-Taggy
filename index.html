@@ -125,7 +125,7 @@ textarea{min-height:90px;resize:vertical}
 <input type="file" id="file" accept="image/*" hidden>
 
 <script>
-/* ===== CAMBIA ESTA LÍNEA: dirección de tu página web TAGGY (termina con /) ===== */
+
 const WEB="https://vale95uicab.github.io/Taggy/";
 
 const $=s=>document.querySelector(s),K="taggyApp";
@@ -153,7 +153,6 @@ const photo=(p,big)=>`<div class="photo" onclick="pickPhoto('pet')" title="Cambi
 function home(){homeR();av();setTimeout(initMap,0)}
 function homeR(){const p=S.pet,l=S.lost;
 $("#home").innerHTML=`
-<div class="chips"><span class="tag">● MASCOTA ACTIVA</span><span class="tag">((•)) GPS ACTIVO</span></div>
 <div class="card pet">${photo(p)}<div><h2>${esc(p.name)} <span style="color:var(--orange)">✔</span></h2><small>${esc(p.breed)} · ${age(p.birth)}</small>
  <span class="tag ${l?"lost":"ok"}">${l?"🚨 PERDIDO":"● EN CASA / SEGURO"}</span></div></div>
 <div class="card shield" onclick="S.shield=!S.shield;save();home();toast(S.shield?'Escudo protector activado':'Escudo desactivado')"><i>🛡️</i>Escudo Protector TAGGY<span>${S.shield?"ACTIVO":"APAGADO"}</span></div>
