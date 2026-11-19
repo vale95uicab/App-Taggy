@@ -30,11 +30,11 @@ h1,h2,h3,.b{font-family:"Baloo 2",sans-serif}
 .tag{display:inline-block;background:var(--yellow);padding:6px 12px;border-radius:30px;font-size:.68rem;font-weight:800;letter-spacing:.04em}
 .tag.lost{background:var(--coral);color:#fff;animation:blink 1s infinite}.tag.ok{background:var(--sage);color:#fff}
 @keyframes blink{50%{transform:scale(1.07)}}
-.pet{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;align-items:center;padding:18px}
-.photo{width:104px;height:104px;border-radius:24px;background:linear-gradient(140deg,var(--blue),var(--sage));display:grid;place-items:center;font-size:2.6rem;overflow:hidden;flex:none;border:3px solid #fff;box-shadow:0 8px 20px rgba(0,0,0,.10);position:relative;cursor:pointer}
+.chips{display:flex;justify-content:space-between;margin-bottom:12px}
+.pet{display:flex;gap:16px;align-items:center}
+.photo{width:92px;height:92px;border-radius:50%;background:linear-gradient(140deg,var(--blue),var(--sage));display:grid;place-items:center;font-size:2.6rem;overflow:hidden;flex:none;border:4px solid #fff;box-shadow:0 8px 20px rgba(0,0,0,.12);position:relative;cursor:pointer}
 .photo img{width:100%;height:100%;object-fit:cover}
-.pet h2{font-size:2rem;line-height:1.05;margin:8px 0 10px}.pet-meta{display:grid;gap:5px;font-size:.85rem;color:#555}.pet-meta strong{color:var(--black)}
-.species{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:30px;background:#EAF1EF;color:#315D50;font-size:.72rem;font-weight:800;width:max-content}
+.pet h2{font-size:2.3rem;line-height:1}.pet small{opacity:.65;font-weight:600;display:block;margin:2px 0 8px}
 .shield{display:flex;align-items:center;gap:12px;background:var(--blue);cursor:pointer;font-weight:800}
 .shield i{font-style:normal;width:40px;height:40px;border-radius:14px;background:var(--cream);display:grid;place-items:center}
 .shield span{margin-left:auto;font-size:.75rem}
@@ -82,8 +82,8 @@ textarea{min-height:90px;resize:vertical}
 .nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);display:flex;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-radius:28px 28px 0 0;padding:10px 10px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(0,0,0,.08);z-index:30}
 .nav button{flex:1;border:0;background:none;font:800 .72rem "DM Sans";color:#999;cursor:pointer;padding:6px;transition:.25s}.nav i{display:block;font-style:normal;font-size:1.4rem;transition:.25s}
 .nav .on{color:var(--deep)}.nav .on i{transform:translateY(-4px) scale(1.15)}
-.sheetbg{position:fixed;inset:0;background:rgba(32,32,32,.5);backdrop-filter:blur(3px);z-index:50;display:none;align-items:flex-end;justify-content:center;overscroll-behavior:contain;touch-action:pan-y}.sheetbg.on{display:flex} body.sheet-open{overflow:hidden;touch-action:none}
-.sheet{width:min(430px,100%);background:var(--cream);border-radius:34px 34px 0 0;padding:26px 22px calc(26px + env(safe-area-inset-bottom));animation:sheet .4s cubic-bezier(.2,.9,.3,1);max-height:90dvh;max-height:90vh;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+.sheetbg{position:fixed;inset:0;background:rgba(32,32,32,.5);backdrop-filter:blur(3px);z-index:50;display:none;align-items:flex-end;justify-content:center}.sheetbg.on{display:flex}
+.sheet{width:min(430px,100%);background:var(--cream);border-radius:34px 34px 0 0;padding:26px 22px calc(26px + env(safe-area-inset-bottom));animation:sheet .4s cubic-bezier(.2,.9,.3,1);max-height:90vh;overflow:auto}
 @keyframes sheet{from{transform:translateY(100%)}}
 .sheet h3{font-size:1.6rem;margin:10px 0 4px}.row{display:flex;gap:10px}.row .btn{flex:1}
 .toast{position:fixed;left:50%;bottom:100px;transform:translate(-50%,150px);background:var(--black);color:#fff;padding:14px 22px;border-radius:30px;font-weight:700;font-size:.9rem;z-index:99;transition:transform .5s cubic-bezier(.2,1.4,.4,1);max-width:88%;text-align:center}.toast.on{transform:translate(-50%,0)}
@@ -106,77 +106,35 @@ textarea{min-height:90px;resize:vertical}
 .auto{background:#fff;border-radius:14px;padding:12px 14px;font-size:.85rem;line-height:1.7;margin-top:8px}
 .circ{overflow:hidden;padding:0}.circ img{width:100%;height:100%;object-fit:cover}
 .photo img{object-position:center 65%}
-.map-card{padding:18px;border:1px solid rgba(32,32,32,.05);box-shadow:0 14px 34px rgba(0,0,0,.08)}
-.map-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
-.map-heading h3{font-size:1.35rem;margin:0}
-.map-heading p{font-size:.8rem;line-height:1.4;color:#777;margin-top:3px}
-.map-badge{white-space:nowrap;background:#EAF1EF;color:#315D50;padding:7px 10px;border-radius:20px;font-size:.68rem;font-weight:800}
-#map{height:270px;border-radius:20px;isolation:isolate;background:#e8dcc6}
-.mapaddr{font-size:.86rem;font-weight:700;margin:12px 4px 2px;line-height:1.45}
-.map-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
-.map-actions .btn{margin:0}
-.nfcbox{padding:22px;background:linear-gradient(160deg,#fff,#FCE8CC);border:1px solid rgba(184,92,20,.08)}
-.nfcbox h3{margin:10px 0 4px;font-size:1.35rem}
-.nfcbox p{font-size:.85rem;line-height:1.5;color:#666;max-width:290px;margin:0 auto}
-.nfc{width:126px;height:126px;margin:18px auto 14px}
-@media(max-width:360px){.pet{grid-template-columns:84px minmax(0,1fr);gap:12px}.photo{width:84px;height:84px;border-radius:20px}.pet h2{font-size:1.7rem}.map-actions{grid-template-columns:1fr}}
 
-
-/* ===== OPTIMIZACIÓN DE RENDIMIENTO TAGGY ===== */
-/* Evita animaciones permanentes que consumen recursos en móviles. */
-.screen,
-.screen > * {
-  animation: none !important;
-}
-.screen.on {
-  animation: taggyScreenIn .18s ease-out both !important;
-}
-@keyframes taggyScreenIn {
-  from { opacity: .92; }
-  to { opacity: 1; }
-}
-.tag.lost {
-  animation: none !important;
-}
-.ring, .sweep, .pin, .pinm::after {
-  animation: none !important;
-}
-.nfc {
-  animation: none !important;
-  box-shadow: 0 0 0 10px rgba(239,138,39,.16);
-  transition: transform .18s ease, background-color .18s ease;
-}
-.nfc:active {
-  transform: scale(.97);
-}
-.nfc.linking {
-  animation: none !important;
-  background: var(--orange);
-  transform: scale(1.03);
-}
-.top, .nav, .sheetbg {
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-}
-.top { background: #FFF8ED; }
-.nav { background: rgba(255,255,255,.98); }
-.sheetbg { background: rgba(32,32,32,.58); }
-.sheet { animation: none !important; }
-.btn, .web a, .nav button, .nav i, .seg button, .sw button {
-  transition-duration: .15s;
-}
-html { scroll-behavior: auto; }
-@media (max-width: 600px) {
-  .card { box-shadow: 0 6px 18px rgba(0,0,0,.055); }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-}
-
+/* ===== Versión app profesional ===== */
+.pet2{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;align-items:center}
+.pet2 .photo{width:104px;height:104px;border-radius:26px;font-size:3rem}.pet2 .photo img{object-position:50% 100%;padding:0;transform:scale(1.3);transform-origin:50% 88%}
+.prow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.species{display:inline-flex;gap:6px;align-items:center;background:#EAF1EF;color:#315D50;padding:6px 10px;border-radius:30px;font-size:.72rem;font-weight:800}
+.pet2 h2{font-size:2.2rem;line-height:1.05;margin:8px 0}
+.pmeta{display:grid;gap:6px;font-size:.88rem}.pmeta>div>span:first-child{color:#777;font-weight:700}
+.sal{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.78rem;font-weight:800}.sal.warn{background:#FBE3DD;color:#9b3a24}.sal.ok{background:#DDEBE5;color:#2f6b4f}
+.map-card{padding:16px}.map-head h3{font-size:1.4rem}
+.map-head p{font-size:.82rem;font-weight:700;margin:2px 0 12px;color:#777;display:flex;align-items:center;gap:7px}
+#map{height:300px}
+.live{width:9px;height:9px;border-radius:50%;background:var(--orange);display:inline-block;animation:livep 2.6s ease-in-out infinite}
+@keyframes livep{50%{opacity:.25}}
+.mapbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mapbtns .btn{margin:10px 0 0;font-size:.9rem;padding:13px 8px}
+.alertc{background:#FBE3DD;border-left:6px solid var(--coral)}
+.nfc-row{display:flex;gap:16px;align-items:center;padding:16px;margin-top:14px;background:linear-gradient(160deg,#fff,#FCE8CC)}
+.nfc-row .nfc{width:68px;height:68px;margin:0;font-size:.75rem;flex:none;animation:none;box-shadow:0 0 0 7px rgba(239,138,39,.18)}
+.nfc-row .nfc.linking{animation:linking 1.1s ease-in-out 2}
+.nfc-row p{font-size:.82rem;line-height:1.4;margin:2px 0 6px;opacity:.75}
+.linkbtn{border:0;background:none;color:var(--deep);font:800 .85rem "DM Sans",sans-serif;padding:0;cursor:pointer}
+/* animaciones más lentas y suaves */
+.screen{animation-duration:.7s}.screen>*{animation-duration:.8s}
+.screen>*:nth-child(2){animation-delay:.12s}.screen>*:nth-child(3){animation-delay:.24s}.screen>*:nth-child(4){animation-delay:.36s}.screen>*:nth-child(5){animation-delay:.48s}
+@keyframes blink{50%{transform:scale(1.04)}}.tag.lost{animation-duration:2.6s}
+.pinm::after{animation-duration:3.8s}.pinm.lost::after{animation-duration:2.2s}
+.sheet{animation-duration:.55s}
+.btn,.act,.nav button,.nav i,.web a,.seg button{transition-duration:.3s}
+.top,.nav,.sheetbg{-webkit-backdrop-filter:none;backdrop-filter:none}.top{background:var(--cream)}.nav{background:rgba(255,255,255,.98)}
 </style>
 </head>
 <body>
@@ -193,7 +151,7 @@ html { scroll-behavior: auto; }
     <button data-t="profile"><i>👤</i>Perfil</button>
   </nav>
 </div>
-<div class="sheetbg" id="bg" aria-hidden="true"><div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menú"></div></div>
+<div class="sheetbg" id="bg"><div class="sheet" id="sheet"></div></div>
 <div class="toast" id="toast"></div>
 <input type="file" id="file" accept="image/*" hidden>
 
@@ -217,110 +175,43 @@ if(S.pet.name==="Dember"&&/DEMBER/.test(S.pet.id||"")){S.pet.name="Catalino";S.p
 let tt;function toast(m){const e=$("#toast");e.textContent=m;e.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("on"),3000)}
 const fdate=d=>new Date(d+"T12:00").toLocaleDateString("es-MX",{day:"numeric",month:"short",year:"numeric"});
 function age(d){const b=new Date(d),n=new Date();let m=(n.getFullYear()-b.getFullYear())*12+n.getMonth()-b.getMonth();if(m<12)return m+" meses";const y=Math.floor(m/12);return y+(y==1?" año":" años")}
-function go(t){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("on",s.id==t));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("on",b.dataset.t==t));window.scrollTo(0,0)}
+function go(t){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("on",s.id==t));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("on",b.dataset.t==t));scrollTo({top:0,behavior:"smooth"})}
 document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.t));
-function sheet(h){
-  const bg=$("#bg");
-  $("#sheet").innerHTML=h;
-  bg.classList.add("on");
-  bg.setAttribute("aria-hidden","false");
-  document.body.classList.add("sheet-open");
-}
-function closeSheet(){
-  const bg=$("#bg");
-  if(!bg || !bg.classList.contains("on")) return;
-  bg.classList.remove("on");
-  bg.setAttribute("aria-hidden","true");
-  document.body.classList.remove("sheet-open");
-}
-window.closeSheet=closeSheet;
-// Cerrar únicamente al tocar el fondo; tocar dentro del panel no lo cierra.
-$("#bg").addEventListener("click",e=>{if(e.target===$("#bg"))closeSheet()});
-$("#sheet").addEventListener("click",e=>e.stopPropagation());
+function sheet(h){$("#sheet").innerHTML=h;$("#bg").classList.add("on")}
+const closeSheet=()=>$("#bg").classList.remove("on");
+addEventListener("keydown",e=>{if(e.key=="Escape")closeSheet()});
+$("#bg").onclick=e=>{if(e.target.id=="bg")closeSheet()};
 const photo=(p,big)=>`<div class="photo" onclick="pickPhoto('pet')" title="Cambiar foto">${p.photo?`<img src="${p.photo}" alt="">`:"🐶"}</div>`;
 
 function home(){homeR();av();setTimeout(initMap,0)}
-function homeR(){const p=S.pet,l=S.lost;
-const speciesIcon=p.species==="Gato"?"🐱":p.species==="Perro"?"🐶":"🐾";
+function homeR(){const p=S.pet,l=S.lost,al=p.alerts||[];
+const ico=p.species==="Gato"?"🐱":p.species==="Perro"?"🐶":"🐾";
+const salud=al.length?`<span class="sal warn">⚠ ${esc(String(al[0]).split(":")[0])}${al.length>1?" +"+(al.length-1):""}</span>`:`<span class="sal ok">✔ Sin condiciones médicas</span>`;
 $("#home").innerHTML=`
-<div class="card pet">
- ${photo(p)}
- <div>
-  <span class="species">${speciesIcon} ${esc(p.species||"Mascota")}</span>
-  <h2>${esc(p.name)}</h2>
-  <div class="pet-meta">
-   <span><strong>Raza:</strong> ${esc(p.breed||"No especificada")}</span>
-   <span><strong>Edad:</strong> ${esc(age(p.birth))}</span>
-  </div>
-  ${l?`<span class="tag lost" style="margin-top:10px">🚨 REPORTE DE EXTRAVÍO ACTIVO</span>`:""}
- </div>
-</div>
-
-<div class="card map-card">
- <div class="map-heading">
-  <div><h3>Ubicación de ${esc(p.name)}</h3><p>Consulta y actualiza la ubicación registrada de tu mascota.</p></div>
-  <span class="map-badge">📍 MAPA</span>
- </div>
- <div id="map"></div>
- <p class="mapaddr">📍 ${esc(S.loc.label)}</p>
- <div class="map-actions">
-  <button class="btn p" onclick="locSheet()">Actualizar ubicación</button>
-  <button class="btn w" onclick="useGpsFromHome()">Usar mi ubicación</button>
- </div>
-</div>
-
-${l?`<div class="card" style="background:#FBE3DD;border-left:5px solid var(--coral)">
- <strong style="color:#9b3a24">🚨 ${esc(p.name)} está reportado como extraviado.</strong>
- <p style="font-size:.85rem;line-height:1.45;margin-top:5px">Última zona reportada: ${esc(l.zone)}.</p>
- <button class="btn w" onclick="openWeb('reportar.html')">Ver reporte en la página web →</button>
- <button class="btn sos found" onclick="found()">✓ Ya encontré a mi mascota</button>
-</div>`:`<button class="btn sos" onclick="lostSheet()">🚨 Reportar mascota extraviada</button>`}
-
-<div class="card nfcbox" style="margin-top:16px">
- <span class="tag">PLACA INTELIGENTE</span>
- <h3>Conexión NFC</h3>
- <p>Acerca tu celular a la placa TAGGY para consultar la ficha digital de tu mascota.</p>
- <button class="nfc" id="nfc" onclick="link()">TAGGY<small>TECNOLOGÍA NFC</small></button>
- <small id="nfcT" style="font-weight:700;opacity:.7">Listo para simular la lectura de la placa</small>
- <button class="btn w" style="margin-top:14px" onclick="nfcSheet()">Ver ficha digital y código QR</button>
-</div>
-
-<div class="label">EXPLORA TAGGY</div>
-<div class="web">
- <a href="#" onclick="openWeb('comprar.html');return false">🛒<br>Comprar collares</a>
- <a href="#" onclick="openWeb('foro.html');return false">💬<br>Foro de la comunidad</a>
- <a href="#" onclick="openWeb('reportar.html');return false">🔎<br>Mascotas extraviadas</a>
- <a href="#" onclick="openWeb('index.html');return false" style="background:#fff">🏠<br>Ir al sitio web</a>
-</div>`}
-
-function link(){const n=$("#nfc");n.classList.add("linking");$("#nfcT").textContent="Leyendo la placa…";setTimeout(()=>{n.classList.remove("linking");$("#nfcT").textContent="✓ Lectura NFC simulada correctamente";toast("Lectura de placa simulada 🐾")},2100)}
-function scanLink(){const p=S.pet,t=S.tutor,o={n:p.name,b:p.breed,a:age(p.birth),x:p.sex+(p.neutered?(p.sex=="Hembra"?" esterilizada":" esterilizado"):""),id:p.id,f:p.photoUrl||"",i:p.icon=="foto"?"🐶":p.icon,o:t.name,t:t.phone,u:t.coPhone,z:t.zone+", "+t.city,r:t.hide?"":t.ref,al:p.alerts,nt:p.note,mc:p.chip?1:0,rw:S.lost?S.lost.rw:"",ld:S.lost?S.lost.dt:"",lz:S.lost?S.lost.zone:S.loc.label};
+<div class="card pet2">${photo(p)}<div class="pinfo">
+ <div class="prow"><span class="species">${ico} ${esc(p.species||"Mascota")}</span><span class="tag ${l?"lost":"ok"}">${l?"🚨 PERDIDA":"● EN CASA"}</span></div>
+ <h2>${esc(p.name)}</h2>
+ <div class="pmeta"><div><span>Raza:</span> <b>${esc(p.breed||"No especificada")}</b></div><div><span>Edad:</span> <b>${esc(age(p.birth))}</b></div><div><span>Salud:</span> ${salud}</div></div>
+</div></div>
+<div class="card map-card"><div class="map-head"><h3 class="b">Ubicación de ${esc(p.name)}</h3><p><i class="live"></i> ${l?"Buscando a "+esc(p.name):"Localizando"}</p></div>
+ <div id="map"></div><p class="mapaddr">📍 ${esc(S.loc.label)}</p>
+ <div class="mapbtns"><button class="btn w" onclick="locSheet()">Cambiar ubicación</button><button class="btn w" onclick="iconSheet()">Cambiar icono</button></div></div>
+${l?`<div class="card alertc"><strong>🚨 ${esc(p.name)} está reportada como perdida.</strong><p style="font-size:.85rem;line-height:1.45;margin:5px 0 4px">Última zona: ${esc(l.zone)}${l.rw?" · Recompensa: "+esc(l.rw):""}</p><button class="btn w" onclick="openWeb('perdidas.html')">Ver el reporte en la página web →</button><button class="btn sos found" onclick="found()">✓ Ya la encontré</button></div>`:`<button class="btn sos" onclick="lostSheet()">🚨 Reportar mascota perdida</button>`}
+<div class="card nfc-row"><button class="nfc" id="nfc" onclick="link()" aria-label="Probar lectura NFC">TAGGY</button><div><strong class="b" style="font-size:1.15rem">Placa NFC</strong><p id="nfcT">Acerca el celular a la placa para ver la ficha.</p><button class="linkbtn" onclick="nfcSheet()">Ver ficha pública y QR →</button></div></div>
+<div class="label">SITIO WEB TAGGY</div>
+<div class="web"><a href="#" onclick="openWeb('comprar.html');return false">🛒<br>Comprar collares</a><a href="#" onclick="openWeb('foro.html');return false">💬<br>Foro de la comunidad</a><a href="#" onclick="openWeb('perdidas.html');return false">🔎<br>Mascotas perdidas</a><a href="#" onclick="openWeb('index.html');return false" style="background:#fff">🏠<br>Inicio TAGGY</a></div>`}
+function link(){const n=$("#nfc");n.classList.add("linking");$("#nfcT").textContent="Enlazando…";setTimeout(()=>{n.classList.remove("linking");$("#nfcT").textContent="✓ Collar enlazado y sincronizado";toast("Collar sincronizado 🐾")},2600)}
+function scanLink(){const p=S.pet,t=S.tutor,o={n:p.name,b:p.breed,a:age(p.birth),x:p.sex+(p.neutered?(p.sex=="Hembra"?" esterilizada":" esterilizado"):""),id:p.id,f:p.photoUrl||"",i:p.icon=="foto"?"🐶":p.icon,o:t.name,t:t.phone,u:t.coPhone,z:t.zone+", "+t.city,r:t.ref,al:p.alerts,nt:p.note,mc:p.chip?1:0,rw:S.lost?S.lost.rw:"",ld:S.lost?S.lost.dt:"",lz:S.lost?S.lost.zone:S.loc.label};
  return location.origin+location.pathname.replace(/[^/]*$/,"")+"scan.html#d="+btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
-function nfcSheet(){sheet(`<span class="tag">FICHA DIGITAL · NFC / QR</span><h3>Ficha pública de ${esc(S.pet.name)}</h3><p style="font-size:.85rem;margin:6px 0 10px">Esto es lo que verá la persona que acerque su celular a la placa o escanee el código QR: foto, datos básicos, alertas y formas de contactarte. No incluye el historial clínico.</p>${S.lost?`<p style="font-size:.85rem;font-weight:700;color:var(--coral);margin-bottom:8px">🚨 Actualiza el enlace de la placa o el código QR para mostrar la recompensa y la última zona reportada.</p>`:""}<label>Enlace de la fotografía (opcional)</label><input id="pu" placeholder="https://..." value="${esc(S.pet.photoUrl||"")}" oninput="nfcUpd()"><label>Enlace de la ficha pública</label><textarea id="lk" readonly style="min-height:80px;font-size:.7rem"></textarea><div id="qr" style="display:grid;place-items:center;margin:12px 0"></div><div class="row"><button class="btn w" onclick="copyLk()">Copiar enlace</button><button class="btn p" onclick="window.open($('#lk').value)">Vista pública</button></div><button class="btn w" onclick="closeSheet()">Cerrar</button>`);nfcUpd()}
+function nfcSheet(){sheet(`<span class="tag">FICHA NFC / QR</span><h3>Perfil público de ${esc(S.pet.name)}</h3><p style="font-size:.85rem;margin:6px 0 10px">Es lo que ve quien escanee el collar: foto, datos básicos, alertas y botón para llamarte. No incluye la ficha clínica.</p>${S.lost?`<p style="font-size:.85rem;font-weight:700;color:var(--coral);margin-bottom:8px">🚨 Graba este enlace actualizado en el collar (o imprime el QR) para que se vea la recompensa y la última zona.</p>`:""}<label>Enlace de su foto (opcional)</label><input id="pu" placeholder="https://..." value="${esc(S.pet.photoUrl||"")}" oninput="nfcUpd()"><label>Enlace para grabar en el NFC</label><textarea id="lk" readonly style="min-height:80px;font-size:.7rem"></textarea><div id="qr" style="display:grid;place-items:center;margin:12px 0"></div><div class="row"><button class="btn w" onclick="copyLk()">Copiar enlace</button><button class="btn p" onclick="window.open($('#lk').value)">Ver como extraño</button></div><button class="btn w" onclick="closeSheet()">Cerrar</button>`);nfcUpd()}
 function nfcUpd(){S.pet.photoUrl=$("#pu").value.trim();save();const l=scanLink();$("#lk").value=l;const q=$("#qr");q.innerHTML="";try{new QRCode(q,{text:l,width:170,height:170,correctLevel:QRCode.CorrectLevel.L})}catch(e){q.innerHTML="<small>No se pudo crear el QR (sin internet o enlace muy largo).</small>"}}
-async function copyLk(){
- const value=$("#lk").value;
- try{
-   if(navigator.clipboard && window.isSecureContext){
-     await navigator.clipboard.writeText(value);
-     toast("Enlace copiado ✓");
-     return;
-   }
- }catch(e){}
- const temp=document.createElement("textarea");
- temp.value=value;temp.setAttribute("readonly","");
- temp.style.position="fixed";temp.style.opacity="0";
- document.body.appendChild(temp);temp.select();
- let ok=false;try{ok=document.execCommand("copy")}catch(e){}
- temp.remove();
- toast(ok?"Enlace copiado ✓":"Mantén presionado el enlace para copiarlo");
-}
+function copyLk(){navigator.clipboard.writeText($("#lk").value).then(()=>toast("Enlace copiado ✓"),()=>{$("#lk").select();toast("Selecciona y copia el enlace")})}
 function delAlert(i){S.pet.alerts.splice(i,1);save();profile()}
 function addAlert(){const v=$("#na").value.trim();if(v){S.pet.alerts.push(v);save();profile()}}
-function lostSheet(){sheet(`<span class="tag lost">REPORTE</span><h3>¿Dónde lo viste por última vez?</h3><form onsubmit="sendLost(event)"><label>Zona</label><input id="lz" required value="${esc(S.loc.label)}"><label>Recompensa (opcional)</label><input id="lr" placeholder="Ej. $1,000 MXN"><label>¿Cuándo lo viste por última vez?</label><input id="ld" type="datetime-local" value="${new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16)}"><label>Mensaje (opcional)</label><textarea id="lm" placeholder="Llevaba su collar TAGGY..."></textarea><div class="row"><button type="button" class="btn w" onclick="closeSheet()">Cancelar</button><button class="btn p">Enviar reporte</button></div></form>`)}
+function lostSheet(){sheet(`<span class="tag lost">REPORTE</span><h3>¿Dónde viste a tu mascota por última vez?</h3><form onsubmit="sendLost(event)"><label>Zona</label><input id="lz" required value="${esc(S.loc.label)}"><label>Recompensa (opcional)</label><input id="lr" placeholder="Ej. $1,000 MXN"><label>¿Cuándo la viste por última vez?</label><input id="ld" type="datetime-local" value="${new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16)}"><label>Mensaje (opcional)</label><textarea id="lm" placeholder="Llevaba su collar TAGGY..."></textarea><div class="row"><button type="button" class="btn w" onclick="closeSheet()">Cancelar</button><button class="btn p">Enviar reporte</button></div></form>`)}
 function sendLost(e){e.preventDefault();const p=S.pet,t=S.tutor,zone=$("#lz").value.trim(),rw=$("#lr").value.trim(),dt=$("#ld").value,m=$("#lm").value.trim();
  let r=[];try{r=JSON.parse(localStorage.getItem("taggyReports"))||[]}catch(x){}
- r.unshift({name:p.name,zone,description:`Especie: ${p.species}. Raza: ${p.breed}. Edad: ${age(p.birth)}. ${p.tags.join(", ")}. ${rw?"Recompensa: "+rw+". ":""}${m}`,contact:t.phone});
+ r.unshift({name:p.name,zone,description:`${p.breed}, ${p.sex.toLowerCase()}, ${age(p.birth)}. ${p.tags.join(", ")}. ${rw?"Recompensa: "+rw+". ":""}${m}`,contact:t.phone});
  localStorage.setItem("taggyReports",JSON.stringify(r));S.lost={zone,rw,dt};save();home();nfcSheet();toast("Reporte enviado a la página web 🚨")}
 function found(){S.lost=null;save();home();toast("¡Qué alegría! "+S.pet.name+" ya está en casa 🏠")}
 
@@ -363,50 +254,15 @@ function setWeb(e,p){e.preventDefault();let u=$("#wu").value.trim();if(!/^https?
 /* ===== Mapa y ubicación ===== */
 let map,mk;
 function pinHtml(){const p=S.pet,i=p.icon,f=i=="foto"&&p.photo;const c=f?`<img src="${p.photo}" alt="">`:i=="foto"?"🐾":i=="perro"?"🐶":i=="gato"?"🐱":i;return `<div class="pinm ${f?"ph":""} ${S.lost?"lost":""}">${c}</div>`}
-function initMap(){
- const el=$("#map");
- if(!el)return;
- if(typeof L==="undefined"){
-   el.innerHTML='<p style="padding:20px;font-weight:700">Conéctate a internet para ver el mapa 🗺️</p>';
-   return;
- }
- const ll=[S.loc.lat,S.loc.lng];
- const icon=L.divIcon({html:pinHtml(),className:"",iconSize:[54,54],iconAnchor:[27,27]});
- if(map){
-   map.setView(ll,16,{animate:false});
-   if(mk){
-     mk.setLatLng(ll);
-     mk.setIcon(icon);
-   } else {
-     mk=L.marker(ll,{icon}).addTo(map);
-   }
-   map.invalidateSize({pan:false});
-   return;
- }
- map=L.map(el,{zoomControl:false,preferCanvas:true,fadeAnimation:false,markerZoomAnimation:false}).setView(ll,16);
- L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
-   maxZoom:19,
-   updateWhenIdle:true,
-   updateWhenZooming:false,
-   keepBuffer:2,
-   attribution:"© OpenStreetMap"
- }).addTo(map);
- mk=L.marker(ll,{icon}).addTo(map);
- map.on("click",e=>{
-   S.loc.lat=e.latlng.lat;
-   S.loc.lng=e.latlng.lng;
-   S.loc.label="Punto marcado en el mapa";
-   save();
-   mk.setLatLng(e.latlng);
-   const address=document.querySelector(".mapaddr");
-   if(address)address.textContent="📍 "+S.loc.label;
-   toast("Ubicación movida. Puedes editar la dirección en Cambiar ubicación");
- });
-}
+function initMap(){const el=$("#map");if(!el)return;if(typeof L=="undefined"){el.innerHTML='<p style="padding:20px;font-weight:700">Conéctate a internet para ver el mapa 🗺️</p>';return}
+ if(map){map.remove();map=null}
+ const ll=[S.loc.lat,S.loc.lng];map=L.map(el,{zoomControl:false}).setView(ll,16);
+ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,updateWhenIdle:true,keepBuffer:2,attribution:"© OpenStreetMap"}).addTo(map);
+ mk=L.marker(ll,{icon:L.divIcon({html:pinHtml(),className:"",iconSize:[54,54],iconAnchor:[27,27]})}).addTo(map);
+ map.on("click",e=>{S.loc.lat=e.latlng.lat;S.loc.lng=e.latlng.lng;S.loc.label="Punto marcado en el mapa";save();mk.setLatLng(e.latlng);document.querySelector(".mapaddr").textContent="📍 "+S.loc.label;toast("Ubicación movida. Puedes editar la dirección en Cambiar ubicación")})}
 function locSheet(){sheet(`<span class="tag">UBICACIÓN</span><h3>¿Dónde está ahora?</h3><p style="font-size:.85rem;margin:4px 0">También puedes tocar el mapa para mover el icono.</p><form onsubmit="saveLoc(event)"><label>Dirección o lugar</label><input id="ll" required value="${esc(S.loc.label)}"><button type="button" class="btn w" onclick="useGps()">📍 Usar mi ubicación actual</button><button type="button" class="btn w" onclick="useHome()">🎓 Volver a Anáhuac Mayab</button><div class="row"><button type="button" class="btn w" onclick="closeSheet()">Cancelar</button><button class="btn p">Guardar</button></div></form>`)}
 function saveLoc(e){e.preventDefault();S.loc.label=$("#ll").value.trim();save();closeSheet();home();toast("Ubicación guardada ✓")}
 function useHome(){S.loc={...DEF.loc};save();closeSheet();home();toast("Ubicación: Anáhuac Mayab")}
-function useGpsFromHome(){useGps()}
 function useGps(){if(!navigator.geolocation)return toast("Tu navegador no permite ubicación");navigator.geolocation.getCurrentPosition(p=>{S.loc={lat:p.coords.latitude,lng:p.coords.longitude,label:"Mi ubicación actual"};save();closeSheet();home();toast("Ubicación actualizada 📍")},()=>toast("No se pudo obtener tu ubicación"))}
 function iconSheet(){const E=["🐶","🐕","🦮","🐩","🐱","🐈","🐰","🐇","🐹","🐭","🐿️","🦔","🐦","🦜","🐤","🦆","🐢","🦎","🐍","🐸","🐠","🐴","🐷","🐑","🐐","🐓","🦙","🐮"];
  sheet(`<span class="tag">ICONO</span><h3>¿Qué mascota pongo en el mapa?</h3><p style="font-size:.85rem;margin:4px 0">Elige el animalito que más se parezca a la tuya.</p><div class="icons" style="grid-template-columns:repeat(5,1fr)">${E.map(k=>`<button class="${S.pet.icon==k?"on":""}" onclick="setIcon('${k}')">${k}</button>`).join("")}</div>${S.pet.photo?`<button class="btn w" onclick="setIcon('foto')">📷 Usar su foto</button>`:""}<button class="btn w" onclick="closeSheet()">Cerrar</button>`)}
