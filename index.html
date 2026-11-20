@@ -211,9 +211,16 @@ function addAlert(){const v=$("#na").value.trim();if(v){S.pet.alerts.push(v);sav
 function lostSheet(){sheet(`<span class="tag lost">REPORTE</span><h3>¿Dónde viste a tu mascota por última vez?</h3><form onsubmit="sendLost(event)"><label>Zona</label><input id="lz" required value="${esc(S.loc.label)}"><label>Recompensa (opcional)</label><input id="lr" placeholder="Ej. $1,000 MXN"><label>¿Cuándo la viste por última vez?</label><input id="ld" type="datetime-local" value="${new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16)}"><label>Mensaje (opcional)</label><textarea id="lm" placeholder="Llevaba su collar TAGGY..."></textarea><div class="row"><button type="button" class="btn w" onclick="closeSheet()">Cancelar</button><button class="btn p">Enviar reporte</button></div></form>`)}
 function sendLost(e){e.preventDefault();const p=S.pet,t=S.tutor,zone=$("#lz").value.trim(),rw=$("#lr").value.trim(),dt=$("#ld").value,m=$("#lm").value.trim();
  let r=[];try{r=JSON.parse(localStorage.getItem("taggyReports"))||[]}catch(x){}
- r.unshift({name:p.name,zone,description:`${p.breed}, ${p.sex.toLowerCase()}, ${age(p.birth)}. ${p.tags.join(", ")}. ${rw?"Recompensa: "+rw+". ":""}${m}`,contact:t.phone});
- localStorage.setItem("taggyReports",JSON.stringify(r));S.lost={zone,rw,dt};save();home();nfcSheet();toast("Reporte enviado a la página web 🚨")}
-function found(){S.lost=null;save();home();toast("¡Qué alegría! "+S.pet.name+" ya está en casa 🏠")}
+ const rid="app-"+Date.now();const ph=p.photo&&p.photo.startsWith("data:")?p.photo:(p.photoUrl?new URL(p.photoUrl,location.href).href:"");
+ r.unshift({id:rid,type:p.species,breed:p.breed,reward:rw,date:(dt||"").slice(0,10),photo:ph,name:p.name,zone,description:`${p.breed}, ${p.sex.toLowerCase()}, ${age(p.birth)}. ${p.tags.join(", ")}. ${rw?"Recompensa: "+rw+". ":""}${m}`,contact:t.phone});
+ localStorage.setItem("taggyReports",JSON.stringify(r));S.lost={zone,rw,dt,rid};save();home();nfcSheet();toast("Reporte enviado a la página web 🚨")}
+function readRep(){try{return JSON.parse(localStorage.getItem("taggyReports"))||[]}catch(e){return[]}}
+function writeRep(r){try{localStorage.setItem("taggyReports",JSON.stringify(r))}catch(e){}}
+function found(){const l=S.lost||{};
+ writeRep(readRep().filter(x=>l.rid?x.id!==l.rid:!(x.name===S.pet.name&&x.contact===S.tutor.phone)));
+ S.lost=null;save();home();toast("¡Qué alegría! "+S.pet.name+" ya está en casa. Quitamos su reporte 🏠")}
+/* limpia reportes viejos de la app que se quedaron guardados sin que haya una mascota perdida */
+(function(){if(S.lost)return;const r=readRep(),k=r.filter(x=>!(x.description&&!x.desc&&!x.type&&x.name===S.pet.name&&x.contact===S.tutor.phone));if(k.length!==r.length)writeRep(k)})();
 
 const ico={alert:["🚨","ALERTA MÉDICA CRÍTICA"],visit:["🩺","CONSULTA GENERAL"],vac:["💉","INMUNIZACIÓN"],other:["📋","REGISTRO"]};
 function health(){$("#health").innerHTML=`<h2 style="font-size:2.2rem;margin:8px 0 2px">Historial de salud</h2><p style="opacity:.65;margin-bottom:14px">${esc(S.pet.name)} · ${S.health.length} registros</p>${fichaCard()}`+
